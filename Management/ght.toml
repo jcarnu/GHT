@@ -1,0 +1,10 @@
+[dropbox]
+path="/tmp/"
+[garradin]
+db_path="../../ghtfact/association.sqlite"
+[ght]
+adresse1="1 impasse du parc de Claire, appartement 11"
+adresse2="31200 TOULOUSE"
+[adh]
+file="saisons.toml"
+
