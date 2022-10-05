@@ -6,6 +6,7 @@ source mgt/bin/activate
 pip3 install -r requirements.txt
 ~~~
 
+Copy `fact_template.xlsx` file into this directory (such a file is a standard invoice file)
 # toml files
 
 ght.toml file contains all necessary path definitions for dropbox target tree, sqlite file for vcards and pointer to season tomlfile (saisons.toml)
