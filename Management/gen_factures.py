@@ -20,21 +20,22 @@ with open("ght.toml", mode="rb") as fp:
         if not outdir.exists():
             os.makedirs(outdir)
         for adh_x in adh_data:
-            wb = load_workbook(filename="fact_template.xlsx")
-            sh = wb.active
             idx = idx + 1
             adh = adh_x['nom']
             fact_name = f"F{year}-{idx:04}"
-            sh['C3'] = adresse1
-            sh['C4'] = adresse2
-            sh['D9'] = adh.strip()
-            sh['C17'] = fact_name
-            sh['C18'] = sh['A24'] = fact_date
-            sh['C24'] = f"Cotisation adhérent au club GHT - saison {saison}"
-            sh['D24'] = sh['F24'] = sh['F33'] = adh_x['tarif']
             excel_filename = f"{fact_name}_{adh.strip().replace(' ','_')}.xlsx"
             outfilename = pathlib.Path(outdir, excel_filename)
-            wb.save(filename = outfilename)
-            outputfiles.append(f'"{outfilename}"')
-        print(f'libreoffice --headless --outdir "{outdir}" --print-to-file {" ".join(outputfiles)}')
+            if not outfilename.exists():
+                wb = load_workbook(filename="fact_template.xlsx")
+                sh = wb.active
+                sh['C3'] = adresse1
+                sh['C4'] = adresse2
+                sh['D9'] = adh.strip()
+                sh['C17'] = fact_name
+                sh['C18'] = sh['A24'] = fact_date
+                sh['C24'] = f"Cotisation adhérent au club GHT - saison {saison}"
+                sh['D24'] = sh['F24'] = sh['F33'] = adh_x['tarif']
+                wb.save(filename = outfilename)
+                outputfiles.append(f'"{outfilename}"')
+                print(f'libreoffice --headless --outdir "{outdir}" --print-to-file {" ".join(outputfiles)}')
         os.system(f'cd "{outdir}"; libreoffice --headless  --print-to-file *.xlsx')
