@@ -3,3 +3,4 @@ Pillow
 vobject
 pysqlite3
 tomli
+requests
